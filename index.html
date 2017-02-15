@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>StrikeDistance</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="app.js"></script>
+    <script src="jquery-3.1.1.min.js"></script>
+</head>
+<body>
+    <h1>StrikeDistance</h1>
+<p>StrikeDistance is a simple calculator that determines the distance between you and a lightning strike.</p>
+    <p id="topMsg" style="font-size: large !important;"></p>
+<div id="content">
+    <h3>Current Temperature</h3>
+    <p>Knowing temperature outside helps us get an accurate representation of the speed of sound.</p>
+    <input type="number" id="temperature"/>
+    <select id="tempUnit">
+        <option value="0">Fahrenheit (°F)</option>
+        <option value="1">Celsius (°C)</option>
+        <option value="2">Kelvin (K)</option>
+    </select>
+    <input type="button" id="location" value="Use my location"/>
+    <br/>
+    <h3>Time Between Flash and Boom</h3>
+    <p>This number helps us get the distance from you to the lightning strike.</p>
+    <input type="number" id="time" />
+    Seconds
+    <input type="button" id="stopwatch" value="Stopwatch"/>
+    <br/><br/>
+    Distance unit:
+    <select id="distUnit">
+        <option value="0">Feet/Miles (ft/mi)</option>
+        <option value="1">Meters/Kilometers (m/km)</option>
+    </select>
+    <br/>
+    <input type="button" id="button" value="Go!" style="font-size: large" />
+</div>
+</body>
+</html>
