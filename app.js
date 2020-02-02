@@ -1,3 +1,4 @@
+var jQuery;
 function getSpeedOfSound(t) {
     return 331.5 + 0.606 * t;
 }
@@ -84,31 +85,33 @@ window.onload = function () {
         };
     locationButton.onclick = function () {
         if (navigator.geolocation) {
-            setTopMessage("Fetching current location...  You may be asked for permission.");
+            setTopMessage("Requesting your current location...");
             navigator.geolocation.getCurrentPosition(function (p) {
-                setTopMessage("Fetching current weather conditions...");
-                var settings = {
-                    success: function (d, s, jq) {
-                        setTopMessage("Current weather conditions fetched successfully!");
-                        var tempC = Number(d.current_observation.temp_c);
-                        tempInput.value = String(convertTemperature(TEMP_C, Number(tempUnitSelect.value), tempC));
-                    },
-                    error: function (jq, s, e) {
-                        setTopMessage("Current weather conditions could not be fetched:\n" + e + " (" + s + ")");
-                    }
+                setTopMessage("Retrieving current weather conditions...");
+                var error = function (jq, s, e) {
+                    setTopMessage("Current weather conditions could not be fetched:\n" + e + " (" + s + ")");
                 };
-                jQuery.ajax("https://api.wunderground.com/api/" + apiKey + "/conditions/q/" + p.coords.latitude + "," + p.coords.longitude + ".json", settings);
+                var settings1 = {
+                    success: function (d, s, jq) {
+                        console.log(d);
+                        setTopMessage("Current weather conditions fetched successfully!");
+                        tempInput.value = String(convertTemperature(TEMP_C, Number(tempUnitSelect.value), parseInt(d.main.temp)));
+                    },
+                    error: error
+                };
+                console.log(p.coords);
+                jQuery.ajax("https://api.openweathermap.org/data/2.5/weather?lat=" + p.coords.latitude + "&lon=" + p.coords.longitude + "&appid=ce9219074ba1cefc2a3f6cc37b0bdfd2&units=metric", settings1);
             }, function (e) {
                 setTopMessage("Could not fetch current location:\n" + e.message);
             });
         }
     };
     stopwatchButton.onclick = function () {
-        if (stopwatchRunning) {
+        if (stopwatchRunning) { // stop it
             stopwatchButton.value = "Stopwatch";
             clearInterval(interval);
         }
-        else {
+        else { // start it
             stopwatchButton.value = "Stop";
             offset = Date.now();
             timeInput.value = "0";

@@ -1,4 +1,6 @@
-﻿function getSpeedOfSound(t: number) {
+﻿var jQuery: any
+
+function getSpeedOfSound(t: number) {
     return 331.5 + 0.606 * t;
 }
 
@@ -91,20 +93,22 @@ window.onload = () => {
         };
     locationButton.onclick = () => {
         if (navigator.geolocation) {
-            setTopMessage("Fetching current location...  You may be asked for permission.");
+            setTopMessage("Requesting your current location...");
             navigator.geolocation.getCurrentPosition((p) => {
-                setTopMessage("Fetching current weather conditions...");
-                var settings = {
-                    success(d, s, jq) {
-                        setTopMessage("Current weather conditions fetched successfully!");
-                        var tempC = Number(d.current_observation.temp_c);
-                        tempInput.value = String(convertTemperature(TEMP_C, Number(tempUnitSelect.value), tempC));
-                    },
-                    error(jq, s, e) {
-                        setTopMessage(`Current weather conditions could not be fetched:\n${e} (${s})`);
-                    }
+                setTopMessage("Retrieving current weather conditions...");
+                const error = (jq, s, e) => {
+                    setTopMessage(`Current weather conditions could not be fetched:\n${e} (${s})`);
                 };
-                jQuery.ajax(`https://api.wunderground.com/api/${apiKey}/conditions/q/${p.coords.latitude},${p.coords.longitude}.json`, settings);
+                const settings1 = {
+                    success: (d, s, jq) => {
+                        console.log(d);
+                        setTopMessage("Current weather conditions fetched successfully!");
+                        tempInput.value = String(convertTemperature(TEMP_C, Number(tempUnitSelect.value), parseInt(d.main.temp)));
+                    },
+                    error: error
+                };
+                console.log(p.coords);
+                jQuery.ajax(`https://api.openweathermap.org/data/2.5/weather?lat=${p.coords.latitude}&lon=${p.coords.longitude}&appid=ce9219074ba1cefc2a3f6cc37b0bdfd2&units=metric`, settings1);
             }, (e) => {
                 setTopMessage(`Could not fetch current location:\n${e.message}`);
             });
