@@ -5,6 +5,7 @@ import ThermostatIcon from '@mui/icons-material/Thermostat';
 import { useEffect, useState } from "react";
 import { UnitNames, useSettings } from "./SettingsProvider";
 import Calculator from "./Calculator";
+import OWM from "./OWM";
 
 export default function TemperatureCard(props: {onChange: (newTemp: number | null) => void}) {
     const theme = useTheme()
@@ -40,7 +41,7 @@ export default function TemperatureCard(props: {onChange: (newTemp: number | nul
             setCheckingWeather(true)
             navigator.geolocation.getCurrentPosition(point => {
                 setCheckButtonText('Checking Weather...')
-                window.fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${point.coords.latitude}&lon=${point.coords.longitude}&appid=ce9219074ba1cefc2a3f6cc37b0bdfd2&units=metric`, {
+                window.fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${point.coords.latitude}&lon=${point.coords.longitude}&appid=${OWM.key}&units=metric`, {
                     method: 'GET'
                 }).then(r => r.json()).then(data => {
                     setCheckButtonText('Check Weather')
