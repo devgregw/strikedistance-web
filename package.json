@@ -2,6 +2,7 @@
   "name": "strikedistance-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gregwhatley.dev/strikedistance-web",
   "dependencies": {
     "@emotion/styled": "^11.10.0",
     "@mui/icons-material": "^5.8.4",
