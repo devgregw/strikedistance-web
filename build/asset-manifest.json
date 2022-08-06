@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/strikedistance-web/static/css/main.1ab97ed0.css",
+    "main.js": "/strikedistance-web/static/js/main.b4aacacb.js",
+    "index.html": "/strikedistance-web/index.html",
+    "main.1ab97ed0.css.map": "/strikedistance-web/static/css/main.1ab97ed0.css.map",
+    "main.b4aacacb.js.map": "/strikedistance-web/static/js/main.b4aacacb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1ab97ed0.css",
+    "static/js/main.b4aacacb.js"
+  ]
+}

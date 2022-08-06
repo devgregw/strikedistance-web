@@ -1,0 +1,52 @@
+.App {
+  text-align: center;
+}
+
+@-webkit-keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 200% 50%;
+	}
+}
+ 
+:root {
+  --bkg-size: 150%;
+  --anim-dur: 5s;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: var(--bkg-size) 50%;
+	}
+	100% {
+		background-position: calc(var(--bkg-size) * 2) 50%;
+	}
+}
+
+#web {
+  height: auto !important;
+  background-color: yellow;
+  color: black;
+  font-size: 1.25rem;
+}
+
+.glitch {
+  display: inline-block;
+  /* background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, purple, red); */
+  background: linear-gradient(to right,yellow, orange, yellow);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient var(--anim-dur) linear 10;
+  -webkit-animation: gradient var(--anim-dur) linear 10;
+  background-repeat: repeat-x;
+  background-size: var(--bkg-size);
+}
