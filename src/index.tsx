@@ -1,28 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { ThemeProvider } from '@emotion/react';
-import { createTheme, CssBaseline } from '@mui/material';
-import SettingsProvider from './SettingsProvider';
-import yellow from '@mui/material/colors/yellow'
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { Container } from '@mui/system';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
-    primary: yellow,
-    secondary: yellow
+    mode: 'dark'
+  },
+  typography: {
+    fontFamily: "Rubik, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans- serif"
   }
 })
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
   <React.StrictMode>
-    <SettingsProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container>
         <App />
-      </ThemeProvider>
-    </SettingsProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+      </Container>
+    </ThemeProvider>
+  </React.StrictMode>
 );

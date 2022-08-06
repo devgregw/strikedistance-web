@@ -1,79 +1,44 @@
-import { Box, Card, CardContent, Divider, Grid, Paper, Typography, useTheme } from '@mui/material';
-import MathJax from 'react-mathjax'
-import { useState } from 'react';
+import React, { type ReactNode, useMemo, useState } from 'react';
 import './App.css';
-import TitleBar from './TitleBar';
-import TemperatureCard from './TemperatureCard';
-import TimeCard from './TimeCard';
-import ResultsCard from './ResultsCard';
+import { Alert, Button, Chip, Container, Divider, Typography } from '@mui/material';
+import TemperatureField from './TemperatureField';
+import { convertTemperature, type TempUnit } from './Calculator';
+import TimeField from './TimeField';
+import ResultCard from './ResultCard';
+import { orange } from '@mui/material/colors';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-function Formula(props: {f: string, block?: boolean}) {
-  return <MathJax.Node inline={props.block === undefined ? true : !props.block} formula={props.f}/>
-}
+const Glitch = (props: { children: ReactNode }) => <Typography className='glitch' variant='h2'>{props.children}</Typography>
 
 function App() {
-  const theme = useTheme()
-  let [temp, setTemp] = useState<number | null>(null)
-  let [time, setTime] = useState<number | null>(null)
+  let [temp, setTemp] = useState("70")
+  let tempAsNumber = useMemo(() => parseInt(temp), [temp])
+  let [tempUnit, setTempUnit] = useState<TempUnit>('f')
+  let [time, setTime] = useState('0')
+  let timeAsNumber = useMemo(() => parseInt(time), [time])
   return (
-    <Paper square elevation={0}>
-      <TitleBar/>
-      <Box sx={{
-        padding: theme.spacing(3)
-      }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12} lg={4}>
-            <Card>
-              <CardContent>
-                <Typography variant='body1'>
-                  StrikeDistance became the first app I ever wrote after learning about the speed of sound around 9th grade. My family had taught me a general rule that for every 4-5 seconds since a flash of lightning, it struck 1 mile away. I wrote StrikeDistance originally for Windows Phone to more accurately calculate the distance using the speed of sound in air at a specified temperature.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} lg={4}>
-            <Card>
-              <CardContent>
-                <MathJax.Provider>
-                  <Typography variant='body1'>
-                    Speed of sound in air <div style={{display: 'inline-block'}}>{<Formula f='s' />} ({<Formula f={'m \\over s'} />})</div> given temperature <div style={{display: 'inline-block'}}>{<Formula f='T_C' />} ({<Formula f={'°C'} />})</div>:
-                    <Formula block f="s = {331.5+0.60T_C}" />
-                  </Typography>
-                  <Divider sx={{ marginY: theme.spacing(1) }} />
-                  <Typography variant='body1'>
-                    Distance traveled <div style={{ display: 'inline-block' }}>{<Formula f='d' />} ({<Formula f={'m'} />})</div> given speed <div style={{ display: 'inline-block' }}>{<Formula f='s' />} ({<Formula f={'m \\over s'} />})</div> and time <div style={{ display: 'inline-block' }}>{<Formula f='t' />} ({<Formula f={'s'} />})</div>:
-                    <Formula block f="d = {st}" />
-                  </Typography>
-                </MathJax.Provider>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} lg={4}>
-            <Card>
-              <CardContent>
-                  <Typography variant='body1'>
-                    StrikeDistance automatically converts units to and from SI base units. You can choose your preferred units in Settings. For example, you can enter temperatures in degrees Fahrenheit and receive answers in miles or feet.
-                  </Typography>
-                  <Divider sx={{marginY: theme.spacing(1)}}/>
-                <Typography variant='body1'>
-                  The app can access your location contact a weather service for current conditions and has a built-in stopwatch.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}><Divider/></Grid>
-          <Grid item xs={12} sm={8} md={6}>
-            <TemperatureCard onChange={t => setTemp(t)}/>
-          </Grid>
-          <Grid item xs={12} sm={8} md={6}>
-            <TimeCard onChange={t => setTime(t)}/>
-          </Grid>
-          <Grid item xs={12} sm={8} md={6}>
-            <ResultsCard temperature={temp} time={time} />
-          </Grid>
-        </Grid>
-      </Box>
-    </Paper>
+    <div className="App">
+      <header style={{marginTop: '1rem'}}>
+        <div><Glitch>Strike{' '}Distance</Glitch></div>
+        <Chip label="Web" id="web" />
+      </header>
+      <Divider sx={{margin: 4}}/>
+      <Container maxWidth="sm">
+        <main>
+          <Alert sx={{ textAlign: 'start', marginBottom: 3 }} severity='warning' className="warning" action={<Button rel='noopener noreferrer' target='_blank' href='https://www.weather.gov/media/safety/Lightning-Brochure18.pdf' sx={{color: orange[500]}} endIcon={<OpenInNewIcon/>}>More</Button>}>
+            <Typography variant='body2'>Always be cautious when dealing with lightning. Stay indoors and away from windows if at all possible. Avoid trees, open areas, and metal objects.</Typography>
+          </Alert>
+          <TemperatureField value={{temp, unit: tempUnit}} onSetValue={setTemp} onSetUnit={u => {
+            if (!isNaN(tempAsNumber))
+              setTemp(convertTemperature(tempAsNumber, tempUnit, u).toFixed(3).toString())
+            setTempUnit(u)
+          }} />
+          <TimeField value={time} onSetValue={setTime}/>
+          <Divider/>
+          <ResultCard temperature={[tempAsNumber, tempUnit]} time={timeAsNumber}/>
+        </main>
+      </Container>
+    </div>
   );
 }
 
