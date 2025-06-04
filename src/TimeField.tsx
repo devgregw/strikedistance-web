@@ -9,7 +9,7 @@ export default function TimeField(props: {value: string, onSetValue: (newValue: 
     let [localValue, setLocalValue] = useState(props.value)
     let invalid = useMemo(() => isNaN(parseInt(localValue)) || parseInt(localValue) < 0, [localValue])
     let [timer, setTimer] = useState<number | false>(false)
-    let [handle, setHandle] = useState<NodeJS.Timer | null>(null)
+    let [handle, setHandle] = useState<NodeJS.Timeout | null>(null)
     let theme = useTheme()
     let toggleStopwatch = useCallback(() => {
         if (!timer) {
