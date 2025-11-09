@@ -12,10 +12,10 @@ const Glitch = (props: { children: ReactNode }) => <Typography className='glitch
 
 function App() {
   let [temp, setTemp] = useState("70")
-  let tempAsNumber = useMemo(() => parseInt(temp), [temp])
+  let tempAsNumber = useMemo(() => parseFloat(temp), [temp])
   let [tempUnit, setTempUnit] = useState<TempUnit>('f')
   let [time, setTime] = useState('0')
-  let timeAsNumber = useMemo(() => parseInt(time), [time])
+  let timeAsNumber = useMemo(() => parseFloat(time), [time])
   return (
     <div className="App">
       <header style={{marginTop: '1rem'}}>
