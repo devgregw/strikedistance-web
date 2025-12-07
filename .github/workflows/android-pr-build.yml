@@ -1,0 +1,35 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Android - Build
+permissions:
+  contents: read
+
+on:
+  # Runs on pushes targeting the default branch
+  pull_request:
+    branches: ["master"]
+    paths: ["Android/**", ".github/workflows/android-pr-build.yml"]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Android
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+      - name: Compile sources
+        run: |
+            echo "WEATHER_API_KEY=${{ secrets.REACT_APP_WEATHER_API_KEY }}" > secrets.properties
+            ./gradlew assembleDebug

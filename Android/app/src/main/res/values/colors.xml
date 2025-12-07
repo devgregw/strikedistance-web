@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accentColor">#FFFFD41B</color>
+    <color name="accentColorDark">#FFFF9800</color>
+    <color name="warningBackground">#FF191207</color>
+    <color name="warningForegroundPrimary">#FFFFE2B7</color>
+    <color name="warningForegroundSecondary">#80FFE2B7</color>
+</resources>

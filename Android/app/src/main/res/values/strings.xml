@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">StrikeDistance</string>
+    <string name="lightning_safety_from_the_nws">Lightning safety from the NWS</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="safety_message">When thunder roars, go indoors. Seek shelter in a substantial building or metal-topped vehicle. Avoid trees, bodies of water, and metal objects.</string>
+    <string name="warning">Warning</string>
+    <string name="use_current_location">Use current location</string>
+    <string name="temp_help_text">Enter the current ambient temperature or use the location button to check it automatically.</string>
+    <string name="thermometer">Thermometer</string>
+    <string name="temperature">Temperature</string>
+    <string name="timer">Timer</string>
+    <string name="time_help_text">When you see lightning, start counting or use the stopwatch to measure the time until you hear thunder.</string>
+    <string name="time">Time</string>
+    <string name="sound">Sound</string>
+</resources>
