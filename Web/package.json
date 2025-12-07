@@ -2,7 +2,7 @@
   "name": "strikedistance-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gregwhatley.dev/strikedistance-web",
+  "homepage": "https://gregwhatley.dev/StrikeDistance",
   "dependencies": {
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.1",
