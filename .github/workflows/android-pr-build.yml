@@ -31,5 +31,5 @@ jobs:
         uses: gradle/gradle-build-action@v3
       - name: Compile sources
         run:
-            echi "WEATHER_API_KEY=${{ secrets.REACT_APP_WEATHER_API_KEY }}" > secrets.properties
+            echo "WEATHER_API_KEY=${{ secrets.REACT_APP_WEATHER_API_KEY }}" > secrets.properties
             ./gradlew assembleDebug
