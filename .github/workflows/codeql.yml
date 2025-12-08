@@ -58,9 +58,9 @@ jobs:
         cache: 'gradle'
     - name: Android - Setup Gradle
       uses: gradle/actions/setup-gradle@v5
-      if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin
+      if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin'
     - name: Setup secrets
-      if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin
+      if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin'
       run: echo "WEATHER_API_KEY=${{ secrets.REACT_APP_WEATHER_API_KEY }}" > secrets.properties
 
     - name: Initialize CodeQL
@@ -70,7 +70,7 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
 
     - name: Android - Compile sources
-      if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin
+      if: matrix.build-mode == 'manual' && matrix.language == 'java-kotlin'
       run: |
         chmod +x ./gradlew
         ./gradlew assembleDebug
