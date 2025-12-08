@@ -32,4 +32,4 @@ jobs:
       - name: Compile sources
         run: npm run build
         env:
-          REACT_APP_WEATHER_API_KEY: ${{ secrets.REACT_APP_WEATHER_API_KEY }}
+          VITE_WEATHER_API_KEY: ${{ secrets.REACT_APP_WEATHER_API_KEY }}
